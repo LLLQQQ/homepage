@@ -9,7 +9,7 @@ function Page() {
         <div className="subtitle">Be the first to know when we launch.</div>
         <div className="btn">Request an invite</div>
       </div>
-      <div className="footer">Made with ❤ in Melbourne.<br />© 2016 {"Broccoli & Co."} All rights reserved.</div>
+      <div className="footer">Made with ♥ in Melbourne.<br />© 2016 {"Broccoli & Co."} All rights reserved.</div>
     </div>
   );
 }
