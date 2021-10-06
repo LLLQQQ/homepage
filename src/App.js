@@ -1,10 +1,10 @@
 import style from './App.module.scss';
-import Homepage from './containers/Homepage';
+import Mainpage from './containers/Mainpage';
 
 function App() {
   return (
     <div className={style["wrapper"]}>
-      <Homepage />
+      <Mainpage />
     </div>
   );
 }
