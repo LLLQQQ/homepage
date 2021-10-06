@@ -77,6 +77,15 @@
                     opacity: 0.8;
                 }
             }
+
+            &.done {
+                padding: 0 42px 36px 42px;
+
+                >.content {
+                    font-size: 12px;
+                    line-height: 16px;
+                }
+            }
         }
     }
 }
