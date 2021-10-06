@@ -5,6 +5,8 @@
         border: 1px solid rgba(59, 59, 59, 1);
         display: flex;
         flex-direction: column;
+        color: rgba(120, 120, 120, 1);
+        text-align: center;
 
         >.header {
             height: 80px;
@@ -14,7 +16,6 @@
             font-size: 22px;
             line-height: 22px;
             font-weight: bold;
-            color: rgba(120, 120, 120, 1);
             text-transform: uppercase;
 
             &::before {
@@ -33,6 +34,36 @@
         >.content {
             height: 0;
             flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            >.title {
+                font-size: 44px;
+                line-height: 46px;
+                font-weight: bold;
+            }
+
+            >.subtitle {
+                margin-top: 20px;
+                font-size: 18px;
+                line-height: 18px;
+            }
+
+            >.btn {
+                margin-top: 20px;
+                border: 1px solid rgba(54, 54, 54, 1);
+                padding: 12px;
+                font-size: 20px;
+                line-height: 20px;
+                user-select: none;
+                cursor: pointer;
+
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
         }
 
         >.footer {
@@ -43,8 +74,6 @@
             justify-content: center;
             font-size: 14px;
             line-height: 20px;
-            color: rgba(120, 120, 120, 1);
-            text-align: center;
             font-style: italic;
         }
     }
