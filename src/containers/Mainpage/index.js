@@ -5,7 +5,7 @@ function Page() {
     <div className={style["wrapper"]}>
       <div className="header">{"Broccoli & Co."}</div>
       <div className="content"></div>
-      <div className="footer">{"Broccoli & Co."}</div>
+      <div className="footer">Made with ❤ in Melbourne.<br />© 2016 {"Broccoli & Co."} All rights reserved.</div>
     </div>
   );
 }
