@@ -89,6 +89,13 @@
                 }
             }
 
+            >.err_msg {
+                margin-top: 12px;
+                font-style: italic;
+                font-size: 12px;
+                line-height: 12px;
+            }
+
             &.done {
                 padding: 0 42px 36px 42px;
 

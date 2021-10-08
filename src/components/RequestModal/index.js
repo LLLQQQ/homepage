@@ -38,7 +38,9 @@ function Comp(props) {
       onCancel();
     };
   }, [onCancel]);
+
   const [loading, setLoading] = useState(false);
+  const [errMsg, setErrMsg] = useState(null);
   const sendOnClick = useCallback(() => {
     // check format
     let n_valid_info = null;
@@ -66,6 +68,7 @@ function Comp(props) {
     setValidInfo(null);
     // send info
     setLoading(true);
+    setErrMsg(null);
     axios
       .post("https://l94wc2001h.execute-api.ap-southeast-2.amazonaws.com/prod/fake-auth", {
         name,
@@ -74,17 +77,21 @@ function Comp(props) {
       .then(retData => {
         console.log(retData);
         if (retData?.status === 200) {
-
           setRequestDone(true);
-
-        } else if (retData?.status === 400) { };
+        };
       })
-      .catch(err => { })
+      .catch(e => {
+        if (e?.response?.status === 400) {
+          const msg = e?.response?.data?.errorMessage ?? null;
+          // console.log(msg);
+          setErrMsg(msg);
+        };
+      })
       .finally(() => {
         setLoading(false);
       });
-
   }, [name, email, confirmEmail]);
+
   return (
     <div className={style["wrapper"]}>
       <div className="mask" onClick={cancelOnClick}></div>
@@ -106,6 +113,11 @@ function Comp(props) {
                 <div className="btn disable">Sending, please wait...</div>
               ) : (
                 <div className="btn" onClick={sendOnClick}>Send</div>
+              )
+            }
+            {
+              !!errMsg && (
+                <div className="err_msg">{errMsg}</div>
               )
             }
           </div >
