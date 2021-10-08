@@ -49,7 +49,7 @@ function Comp(props) {
         name: true,
       });
     };
-    if (typeof email !== 'string' || !/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/.test(email)) {
+    if (typeof email !== 'string' || !/^([a-zA-Z]|[0-9])(\w|-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/.test(email)) {
       n_valid_info = Object.assign({}, n_valid_info ?? {}, {
         email: true,
       });

@@ -14,3 +14,8 @@ npm run start
 
 npm run test
 
+
+### Testing config
+
+/src/App.test.js
+
