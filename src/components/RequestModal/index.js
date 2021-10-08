@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import style from './index.module.scss';
+import axios from 'axios';
 
 function Comp(props) {
   const { onCancel } = props;
@@ -37,6 +38,7 @@ function Comp(props) {
       onCancel();
     };
   }, [onCancel]);
+  const [loading, setLoading] = useState(false);
   const sendOnClick = useCallback(() => {
     // check format
     let n_valid_info = null;
@@ -62,7 +64,26 @@ function Comp(props) {
     };
     // correct
     setValidInfo(null);
-    setRequestDone(true);
+    // send info
+    setLoading(true);
+    axios
+      .post("https://l94wc2001h.execute-api.ap-southeast-2.amazonaws.com/prod/fake-auth", {
+        name,
+        email,
+      })
+      .then(retData => {
+        console.log(retData);
+        if (retData?.status === 200) {
+
+          setRequestDone(true);
+
+        } else if (retData?.status === 400) { };
+      })
+      .catch(err => { })
+      .finally(() => {
+        setLoading(false);
+      });
+
   }, [name, email, confirmEmail]);
   return (
     <div className={style["wrapper"]}>
@@ -80,7 +101,13 @@ function Comp(props) {
             <input className={"input" + (validInfo?.name === true ? " invalid" : "")} placeholder="Full name" value={name} onChange={nameOnChange} />
             <input className={"input" + (validInfo?.email === true ? " invalid" : "")} placeholder="Email" value={email} onChange={emailOnChange} />
             <input className={"input" + (validInfo?.confirmEmail === true ? " invalid" : "")} placeholder="Confirm email" value={confirmEmail} onChange={confirmEmailOnChange} />
-            <div className="btn" onClick={sendOnClick}>Send</div>
+            {
+              loading ? (
+                <div className="btn disable">Sending, please wait...</div>
+              ) : (
+                <div className="btn" onClick={sendOnClick}>Send</div>
+              )
+            }
           </div >
         )
       }

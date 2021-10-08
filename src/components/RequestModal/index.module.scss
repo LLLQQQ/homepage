@@ -77,8 +77,15 @@
                 user-select: none;
                 cursor: pointer;
 
-                &:hover {
-                    opacity: 0.8;
+                &:not(.disable) {
+
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                }
+
+                &.disable {
+                    opacity: 0.6;
                 }
             }
 
