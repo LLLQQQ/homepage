@@ -61,6 +61,10 @@
                 margin-top: 10px;
                 padding-left: 12px;
                 padding-right: 12px;
+
+                &.invalid {
+                    border-color: red;
+                }
             }
 
             >.btn {

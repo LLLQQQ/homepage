@@ -4,14 +4,66 @@ import style from './index.module.scss';
 function Comp(props) {
   const { onCancel } = props;
   const [requestDone, setRequestDone] = useState(false);
+  const [validInfo, setValidInfo] = useState(null);
+  const [name, setName] = useState("");
+  const nameOnChange = useCallback((e) => {
+    const v = e.target.value ?? "";
+    setName(v);
+    if (validInfo?.name === true) {
+      const { name, ...rest } = validInfo;
+      setValidInfo(rest);
+    };
+  }, [validInfo]);
+  const [email, setEmail] = useState("");
+  const emailOnChange = useCallback((e) => {
+    const v = e.target.value ?? "";
+    setEmail(v);
+    if (validInfo?.email === true) {
+      const { email, ...rest } = validInfo;
+      setValidInfo(rest);
+    };
+  }, [validInfo]);
+  const [confirmEmail, setConfirmEmail] = useState("");
+  const confirmEmailOnChange = useCallback((e) => {
+    const v = e.target.value ?? "";
+    setConfirmEmail(v);
+    if (validInfo?.confirmEmail === true) {
+      const { confirmEmail, ...rest } = validInfo;
+      setValidInfo(rest);
+    };
+  }, [validInfo]);
   const cancelOnClick = useCallback(() => {
     if (typeof onCancel === 'function') {
       onCancel();
     };
   }, [onCancel]);
   const sendOnClick = useCallback(() => {
+    // check format
+    let n_valid_info = null;
+    if (typeof name !== 'string' || name.length < 3) {
+      n_valid_info = Object.assign({}, n_valid_info ?? {}, {
+        name: true,
+      });
+    };
+    if (typeof email !== 'string' || !/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/.test(email)) {
+      n_valid_info = Object.assign({}, n_valid_info ?? {}, {
+        email: true,
+      });
+    } else {
+      if (email !== confirmEmail) {
+        n_valid_info = Object.assign({}, n_valid_info ?? {}, {
+          confirmEmail: true,
+        });
+      };
+    };
+    if (!!n_valid_info) {
+      setValidInfo(n_valid_info);
+      return;
+    };
+    // correct
+    setValidInfo(null);
     setRequestDone(true);
-  }, []);
+  }, [name, email, confirmEmail]);
   return (
     <div className={style["wrapper"]}>
       <div className="mask" onClick={cancelOnClick}></div>
@@ -25,9 +77,9 @@ function Comp(props) {
         ) : (
           <div className="content">
             <div className="title">Request an invite</div>
-            <input className="input" placeholder="Full name" />
-            <input className="input" placeholder="Email" />
-            <input className="input" placeholder="Confirm email" />
+            <input className={"input" + (validInfo?.name === true ? " invalid" : "")} placeholder="Full name" value={name} onChange={nameOnChange} />
+            <input className={"input" + (validInfo?.email === true ? " invalid" : "")} placeholder="Email" value={email} onChange={emailOnChange} />
+            <input className={"input" + (validInfo?.confirmEmail === true ? " invalid" : "")} placeholder="Confirm email" value={confirmEmail} onChange={confirmEmailOnChange} />
             <div className="btn" onClick={sendOnClick}>Send</div>
           </div >
         )
